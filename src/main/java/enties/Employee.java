@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+@Entity
 public class Employee {
 	private Long id;
 
@@ -56,5 +57,4 @@ public class Employee {
         return "Employee [id=" + id + ", name=" + name + ", department="
                 + department.getName() + "]";
     }
-
 }
