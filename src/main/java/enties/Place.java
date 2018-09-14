@@ -20,7 +20,10 @@ public class Place {
     
     private List<User> users = new ArrayList<User>();
 
-    public Place() {
+    private List<Activity> activities = new ArrayList<Activity>();
+    
+
+	public Place() {
     }
     
 	public Place(String name, Integer postCode) {
@@ -77,5 +80,13 @@ public class Place {
 
 	public void setUsers(List<User> users) {
 		this.users = users;
+	}
+	
+    public List<Activity> getActivities() {
+		return activities;
+	}
+
+	public void setActivities(List<Activity> activities) {
+		this.activities = activities;
 	}
 }
