@@ -1,6 +1,7 @@
 package enties;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,17 +14,19 @@ import javax.persistence.JoinColumn;
 public class Activity {
 	private Long idActivity;
 	private String label;
-	private ArrayList <Weather> weathers = new ArrayList <Weather>();
-	private ArrayList <User> users = new ArrayList <User>();
-	private ArrayList <Place> places = new ArrayList <Place>();
+	private List <Weather> weathers = new ArrayList <Weather>();
+	private List <User> users = new ArrayList <User>();
+	private List <Place> places = new ArrayList <Place>();
+	
 	public Activity() {
 		super();
 	}
 
 
-	public Activity(Long idActivity, String label) {
-		this.idActivity=idActivity;
+	public Activity(String label,List <Place> places, List<Weather> weathers) {
 		this.label=label;
+		this.places=places;
+		this.weathers=weathers;
 	}
 
 
@@ -50,7 +53,7 @@ public class Activity {
 	@JoinTable(name="ActivityWeather",
 	joinColumns= { @JoinColumn(name = "idActivity")},
 	inverseJoinColumns= {@JoinColumn(name = "idWeather")})
-	public ArrayList<Weather> getWeathers() {
+	public List<Weather> getWeathers() {
 		return weathers;
 	}
 
@@ -66,7 +69,7 @@ public class Activity {
 	@JoinTable(name="ActivityUser",
 	joinColumns= { @JoinColumn(name = "idActivity")},
 	inverseJoinColumns= {@JoinColumn(name = "idUser")})
-	public ArrayList<User> getUsers() {
+	public List<User> getUsers() {
 		return users;
 	}
 
@@ -79,7 +82,7 @@ public class Activity {
 	@JoinTable(name="ActivityPlace",
 	joinColumns= {@JoinColumn(name="idActivity")},
 	inverseJoinColumns= {@JoinColumn(name = "idPlace")})
-	public ArrayList<Place> getPlaces() {
+	public List<Place> getPlaces() {
 		return places;
 	}
 
