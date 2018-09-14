@@ -16,6 +16,10 @@ public class Weather {
 	private Wind wind;
 	private Wave wave;
 	
+	public Weather(){
+		super();
+	}
+	
 	public Weather(float temperature, State state, Snow snow, Wind wind, Wave wave) {
 		super();
 		this.temperature = temperature;

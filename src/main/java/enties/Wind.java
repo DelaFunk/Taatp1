@@ -10,6 +10,9 @@ public class Wind {
 	private long idWind;
 	private String label;
 	
+	public Wind() {
+		super();
+	}
 	
 	public Wind(String label) {
 		super();

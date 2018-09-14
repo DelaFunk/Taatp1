@@ -10,6 +10,10 @@ public class Snow {
 	private long idSnow;
 	private String label;
 	
+	public Snow() {
+		super();
+	}
+	
 	public Snow(String label) {
 		super();
 		this.label = label;

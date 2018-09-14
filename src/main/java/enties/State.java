@@ -10,6 +10,10 @@ public class State {
 	private long idState;
 	private String label;
 	
+	public State() {
+		super();
+	}
+	
 	public State(String label) {
 		super();
 		this.label = label;

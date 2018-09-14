@@ -10,6 +10,11 @@ public class Wave {
 	private long idWave;
 	private String label;
 	
+	
+	public Wave() {
+		super();
+	}
+
 	public Wave(String label) {
 		super();
 		this.label = label;
