@@ -10,6 +10,11 @@ import javax.persistence.Persistence;
 
 import enties.User;
 import enties.Place;
+import enties.Weather;
+import enties.Snow;
+import enties.State;
+import enties.Wave;
+import enties.Wind;
 
 
 public class JpaTest {
@@ -34,9 +39,16 @@ public class JpaTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
+        try {
+        	test.createWeather();
+        }catch(Exception e) {
+        	e.printStackTrace();
+        }
         tx.commit();
 
         test.listUsers();
+        test.listWeather();
             
         manager.close();
         System.out.println(".. done");
@@ -58,6 +70,29 @@ public class JpaTest {
         List<User> resultList = manager.createQuery("Select u From User u", User.class).getResultList();
         System.out.println("num of users:" + resultList.size());
         for (User next : resultList) {
+            System.out.println("next users: " + next);
+        }
+    }
+    
+    private void createWeather() {
+    	int numOfWeather = manager.createQuery("Select u From User u", Weather.class).getResultList().size();
+    	if(numOfWeather == 0){
+    		Snow snow = new Snow("peu");
+    		State state = new State("pluie");
+    		Wind wind = new Wind("peu");
+    		Wave wave = new Wave("faible");
+    		manager.persist(snow);
+    		manager.persist(state);
+    		manager.persist(wind);
+    		manager.persist(wave);
+    		manager.persist(new Weather(30,state,snow,wind,wave));
+    	}
+    }
+    
+    private void listWeather() {
+        List<Weather> resultList = manager.createQuery("Select u From User u", Weather.class).getResultList();
+        System.out.println("num of users:" + resultList.size());
+        for (Weather next : resultList) {
             System.out.println("next users: " + next);
         }
     }
