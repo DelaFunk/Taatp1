@@ -1,5 +1,6 @@
 package jpa;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -7,8 +8,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
-import enties.Department;
-import enties.Employee;
+import enties.User;
+import enties.Place;
 
 
 public class JpaTest {
@@ -29,35 +30,35 @@ public class JpaTest {
         EntityTransaction tx = manager.getTransaction();
         tx.begin();
         try {
-            test.createEmployees();
+            test.createUsers();
         } catch (Exception e) {
             e.printStackTrace();
         }
         tx.commit();
 
-        test.listEmployees();
+        test.listUsers();
             
         manager.close();
         System.out.println(".. done");
     }
 
-    private void createEmployees() {
-        int numOfEmployees = manager.createQuery("Select a From Employee a", Employee.class).getResultList().size();
-        if (numOfEmployees == 0) {
-            Department department = new Department("java");
-            manager.persist(department);
+    private void createUsers() {
+        int numOfUsers = manager.createQuery("Select u From User u", User.class).getResultList().size();
+        if (numOfUsers == 0) {
+            Place place = new Place("Rennes", 35000);
+            manager.persist(place);
 
-            manager.persist(new Employee("Jakab Gipsz",department));
-            manager.persist(new Employee("Captain Nemo",department));
+            manager.persist(new User("Paul", "abdce", "paul@mail.com"));
+            manager.persist(new User("Pierre", "12345", "pierre@mail.com"));
 
         }
     }
 
-    private void listEmployees() {
-        List<Employee> resultList = manager.createQuery("Select a From Employee a", Employee.class).getResultList();
-        System.out.println("num of employees:" + resultList.size());
-        for (Employee next : resultList) {
-            System.out.println("next employee: " + next);
+    private void listUsers() {
+        List<User> resultList = manager.createQuery("Select u From User u", User.class).getResultList();
+        System.out.println("num of users:" + resultList.size());
+        for (User next : resultList) {
+            System.out.println("next users: " + next);
         }
     }
 }
