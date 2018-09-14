@@ -1,16 +1,22 @@
 package enties;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class State {
 
 	private long idState;
 	private String label;
 	
-	public State(long idState, String label) {
+	public State(String label) {
 		super();
-		this.idState = idState;
 		this.label = label;
 	}
 
+	@Id
+    @GeneratedValue
 	public long getIdState() {
 		return idState;
 	}
@@ -26,6 +32,12 @@ public class State {
 	public void setLabel(String label) {
 		this.label = label;
 	}
+
+	@Override
+	public String toString() {
+		return "State [idState=" + idState + ", label=" + label + "]";
+	}
+	
 	
 		
 }

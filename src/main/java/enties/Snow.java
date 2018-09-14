@@ -1,16 +1,22 @@
 package enties;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Snow {
 
 	private long idSnow;
 	private String label;
 	
-	public Snow(long idSnow, String label) {
+	public Snow(String label) {
 		super();
-		this.idSnow = idSnow;
 		this.label = label;
 	}
 
+	@Id
+    @GeneratedValue
 	public long getIdSnow() {
 		return idSnow;
 	}
@@ -27,5 +33,9 @@ public class Snow {
 		this.label = label;
 	}
 	
+	@Override
+	public String toString() {
+		return "Snow [idSnow=" + idSnow + ", label=" + label + "]";
+	}
 		
 }

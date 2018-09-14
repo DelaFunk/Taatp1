@@ -1,18 +1,23 @@
 package enties;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Wind {
 	
 	private long idWind;
 	private String label;
 	
 	
-	public Wind(long idWind, String label) {
+	public Wind(String label) {
 		super();
-		this.idWind = idWind;
 		this.label = label;
 	}
 
-
+	@Id
+    @GeneratedValue
 	public long getIdWind() {
 		return idWind;
 	}
@@ -30,6 +35,11 @@ public class Wind {
 
 	public void setLabel(String label) {
 		this.label = label;
+	}
+
+	@Override
+	public String toString() {
+		return "Wind [idWind=" + idWind + ", label=" + label + "]";
 	}
 	
 	

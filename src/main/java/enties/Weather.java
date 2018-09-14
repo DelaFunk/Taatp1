@@ -1,24 +1,32 @@
 package enties;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+
+@Entity
 public class Weather {
 	
 	private long idWeather;
 	private float temperature;
-	private long idState;
-	private long idSnow;
-	private long idWind;
-	private long idWave;
+	private State state;
+	private Snow snow;
+	private Wind wind;
+	private Wave wave;
 	
-	public Weather(long idWeather, float temperature, long idState, long idSnow, long idWind, long idWave) {
+	public Weather(float temperature, State state, Snow snow, Wind wind, Wave wave) {
 		super();
-		this.idWeather = idWeather;
 		this.temperature = temperature;
-		this.idState = idState;
-		this.idSnow = idSnow;
-		this.idWind = idWind;
-		this.idWave = idWave;
+		this.state = state;
+		this.snow = snow;
+		this.wind = wind;
+		this.wave = wave;
 	}
 	
+	@Id
+    @GeneratedValue
 	public long getIdWeather() {
 		return idWeather;
 	}
@@ -34,38 +42,48 @@ public class Weather {
 	public void setTemperature(float temperature) {
 		this.temperature = temperature;
 	}
-	
-	public long getIdState() {
-		return idState;
+
+	@ManyToOne
+	public State getState() {
+		return state;
+	}
+
+	public void setState(State state) {
+		this.state = state;
+	}
+	@ManyToOne
+	public Snow getSnow() {
+		return snow;
+	}
+
+	public void setSnow(Snow snow) {
+		this.snow = snow;
 	}
 	
-	public void setIdState(long idState) {
-		this.idState = idState;
+	@ManyToOne
+	public Wind getWind() {
+		return wind;
+	}
+
+	public void setWind(Wind wind) {
+		this.wind = wind;
+	}
+
+	@ManyToOne
+	public Wave getWave() {
+		return wave;
+	}
+
+	public void setWave(Wave wave) {
+		this.wave = wave;
+	}
+
+	@Override
+	public String toString() {
+		return "Weather [idWeather=" + idWeather + ", temperature=" + temperature + ", state=" + state + ", snow="
+				+ snow + ", wind=" + wind + ", wave=" + wave + "]";
 	}
 	
-	public long getIdSnow() {
-		return idSnow;
-	}
-	
-	public void setIdSnow(long idSnow) {
-		this.idSnow = idSnow;
-	}
-	
-	public long getIdWind() {
-		return idWind;
-	}
-	
-	public void setIdWind(long idWind) {
-		this.idWind = idWind;
-	}
-	
-	public long getIdWave() {
-		return idWave;
-	}
-	
-	public void setIdWave(long idWave) {
-		this.idWave = idWave;
-	}
 	
 	
 }
