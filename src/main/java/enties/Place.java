@@ -62,13 +62,6 @@ public class Place {
 		this.postCode = postCode;
 	}
 
-
-	@Override
-    public String toString() {
-        return "Place [idPlace=" + idPlace + ", name=" + name + ", postCode="
-                + postCode + "]";
-    }
-
 	@ManyToMany
 	@JoinTable( name = "PlaceUser",
 			joinColumns = { @JoinColumn(name = "idPlace") },
@@ -82,6 +75,10 @@ public class Place {
 		this.users = users;
 	}
 	
+	@ManyToMany
+	@JoinTable( name = "ActivityPlace",
+			joinColumns = { @JoinColumn(name = "idPlace") },
+			inverseJoinColumns = { @JoinColumn(name = "idActivity") })
     public List<Activity> getActivities() {
 		return activities;
 	}
@@ -89,4 +86,10 @@ public class Place {
 	public void setActivities(List<Activity> activities) {
 		this.activities = activities;
 	}
+	
+	@Override
+    public String toString() {
+        return "Place [idPlace=" + idPlace + ", name=" + name + ", postCode="
+                + postCode + "]";
+    }
 }
