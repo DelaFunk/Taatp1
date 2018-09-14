@@ -70,17 +70,17 @@ public class JpaTest {
         List<User> resultList = manager.createQuery("Select u From User u", User.class).getResultList();
         System.out.println("num of users:" + resultList.size());
         for (User next : resultList) {
-            System.out.println("next users: " + next);
+            System.out.println("next user: " + next);
         }
     }
     
     private void createWeather() {
-    	int numOfWeather = manager.createQuery("Select u From User u", Weather.class).getResultList().size();
+    	int numOfWeather = manager.createQuery("Select w From Weather w", Weather.class).getResultList().size();
     	if(numOfWeather == 0){
-    		Snow snow = new Snow("peu");
-    		State state = new State("pluie");
-    		Wind wind = new Wind("peu");
-    		Wave wave = new Wave("faible");
+    		Snow snow = new Snow("low");
+    		State state = new State("rain");
+    		Wind wind = new Wind("low");
+    		Wave wave = new Wave("low");
     		manager.persist(snow);
     		manager.persist(state);
     		manager.persist(wind);
@@ -90,10 +90,10 @@ public class JpaTest {
     }
     
     private void listWeather() {
-        List<Weather> resultList = manager.createQuery("Select u From User u", Weather.class).getResultList();
-        System.out.println("num of users:" + resultList.size());
+        List<Weather> resultList = manager.createQuery("Select w From Weather w", Weather.class).getResultList();
+        System.out.println("num of weathers:" + resultList.size());
         for (Weather next : resultList) {
-            System.out.println("next users: " + next);
+            System.out.println("next weather: " + next);
         }
     }
 }
