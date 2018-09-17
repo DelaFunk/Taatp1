@@ -6,46 +6,28 @@ import javax.persistence.EntityTransaction;
 import enties.Snow;
 
 
-public class SnowDao {
 
-private EntityManager manager;
-
-	public SnowDao(EntityManager manager){
-		this.manager = manager;
+public class SnowDao extends AbstractDao<Snow, Long> implements Dao<Snow, Long> {
+	
+	private EntityManager manager;
+	
+	public SnowDao(EntityManager manager) {
+		super(manager);
 	}
 	
-	public Snow createSnow(Snow snow) {
-		EntityTransaction tx = manager.getTransaction();
-		tx.begin();
-		try {
-			manager.persist(snow);
-		}catch(Exception e) {
-			tx.rollback();
-		}
-		tx.commit();
-		return snow;
-	}
-
-	public Snow findSnowById(long idSnow) {
-		return manager.find(Snow.class, idSnow);
+	public Snow create(Snow entity) {
+		return super.create(entity);
 	}
 	
-	public Snow changeLabel(long idSnow, String label) {
-		Snow snow = this.findSnowById(idSnow);
-		snow.setLabel(label);
-		EntityTransaction tx = manager.getTransaction();
-		tx.commit();
-		return snow;
+	public Snow findById(Long id) {
+		return manager.find(Snow.class,	id);
 	}
 	
-	public void deleteSnow(Snow snow) {
-		EntityTransaction tx = manager.getTransaction();
-		tx.begin();
-		try {
-			manager.remove(snow);
-		}catch(Exception e) {
-			tx.rollback();
-		}
-		tx.commit();
+	public Snow update(Snow entity) {
+		return super.update(entity);
+	}
+	
+	public void delete(Snow entity) {
+		super.delete(entity);
 	}
 }
