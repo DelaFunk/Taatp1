@@ -54,6 +54,7 @@ public class JpaTest {
         tx.commit();
 
         test.listUsers();
+        test.listActivity();
         test.listWeather();
             
         manager.close();
@@ -68,6 +69,7 @@ public class JpaTest {
 
             manager.persist(new User("Paul", "abdce", "paul@mail.com"));
             manager.persist(new User("Pierre", "12345", "pierre@mail.com"));
+
         }
     }
 
