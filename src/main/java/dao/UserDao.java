@@ -7,68 +7,40 @@ import org.hibernate.Session;
 
 import enties.User;
 
-public class UserDao {
+public class UserDao implements Dao<User, Long>{
 	
 	private EntityManager manager;
 	
 	public UserDao(EntityManager manager){
-		manager = manager;
+		this.manager = manager;
 	}
 
-	public User createUser(User user){
+	public User create(User entity) {
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		try{
-			manager.persist(user);
+			manager.persist(entity);
 		}catch(Exception e){
 			tx.rollback();
 		}
 		tx.commit();
-		return user;
+		return entity;
 	}
-	
-	public User findUserById(Long idUser){
-		return manager.find(User.class,	idUser);
-	}
-	
-	public User changePseudo(Long idUser, String pseudo){
-		User user = this.findUserById(idUser);
-		user.setPseudo(pseudo);
-		EntityTransaction tx = manager.getTransaction();
-		try{
 
-		}catch(Exception e){
-			tx.rollback();
-		}
-		tx.commit();
-		return user;
+	public User findById(Long id) {
+		return manager.find(User.class,	id);
 	}
-	
-	public User changePassword(Long idUser, String password){
-		User user = this.findUserById(idUser);
-		user.setPassword(password);
-		EntityTransaction tx = manager.getTransaction();
-		try{
-			
-		}catch(Exception e){
-			tx.rollback();
-		}
-		tx.commit();
-		return user;
+
+	public User update(User entity) {
+		manager.merge(entity);
+		return entity;
 	}
-	
-	public User changeMail(Long idUser, String mail){
-		User user = this.findUserById(idUser);
-		user.setMail(mail);
-		return user;
-	}
-	
-	public void deleteUser(Long idUser){
+
+	public void delete(User entity) {
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
-		User user = this.findUserById(idUser);
 		try{
-			manager.remove(user);
+			manager.remove(entity);
 		}catch(Exception e){
 			tx.rollback();
 		}

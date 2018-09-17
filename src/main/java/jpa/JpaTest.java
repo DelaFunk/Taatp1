@@ -8,6 +8,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
+import dao.PlaceDao;
+import dao.UserDao;
 import enties.User;
 import enties.Place;
 import enties.Weather;
@@ -32,15 +34,11 @@ public class JpaTest {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("mysql");
         EntityManager manager = factory.createEntityManager();
         JpaTest test = new JpaTest(manager);
-
-        EntityTransaction tx = manager.getTransaction();
-        tx.begin();
-        try {
-            test.createUsers();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+       
+        test.createUsers();
         
+        EntityTransaction tx = manager.getTransaction();      
+        tx.begin();
         try {
         	test.createWeather();
         }catch(Exception e) {
@@ -56,6 +54,7 @@ public class JpaTest {
         test.listUsers();
         test.listActivity();
         test.listWeather();
+        test.listActivity();
             
         manager.close();
         System.out.println(".. done");
@@ -65,10 +64,20 @@ public class JpaTest {
         int numOfUsers = manager.createQuery("Select u From User u", User.class).getResultList().size();
         if (numOfUsers == 0) {
             Place place = new Place("Rennes", 35000);
-            manager.persist(place);
+            PlaceDao placeDao = new PlaceDao(manager);
+            placeDao.create(place);
 
-            manager.persist(new User("Paul", "abdce", "paul@mail.com"));
-            manager.persist(new User("Pierre", "12345", "pierre@mail.com"));
+            UserDao userDao = new UserDao(manager);
+            User user1 = new User("Paul", "abdce", "paul@mail.com");
+            User user2 = new User("Pierre", "12345", "pierre@mail.com");
+            userDao.create(user1);
+            userDao.create(user2);
+            
+            user1.setPassword("ecdba");
+            userDao.update(user1);
+            System.out.println("user find :" + userDao.findById(user2.getIdUser()).toString());
+            userDao.delete(user1);
+            userDao.delete(user2);
 
         }
     }
@@ -138,7 +147,7 @@ public class JpaTest {
         List<Activity> resultList = manager.createQuery("Select a From Activity a", Activity.class).getResultList();
         System.out.println("num of activity:" + resultList.size());
         for (Activity next : resultList) {
-            System.out.println("next Activity: " + next);
+            System.out.println("next activity: " + next);
         }
     }
     

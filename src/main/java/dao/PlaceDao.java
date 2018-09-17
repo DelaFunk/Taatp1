@@ -6,62 +6,44 @@ import javax.persistence.EntityTransaction;
 import enties.Place;
 import enties.User;
 
-public class PlaceDao {
+public class PlaceDao implements Dao<Place, Long>{
 private EntityManager manager;
 	
 	public PlaceDao(EntityManager manager){
 		this.manager = manager;
 	}
 
-	public Place createPlace(Place place){
+	public Place create(Place entity) {
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		try{
-			manager.persist(place);
+			manager.persist(entity);
 		}catch(Exception e){
 			tx.rollback();
 		}
 		tx.commit();
-		return place;
+		return entity;
 	}
-	
-	public Place findPlaceById(Long idPlace){
-		return manager.find(Place.class,idPlace);
-	}
-	
-	public Place changeName(Long idPlace, String name){
-		Place place = this.findPlaceById(idPlace);
-		place.setName(name);
-		EntityTransaction tx = manager.getTransaction();
-		try{
 
-		}catch(Exception e){
-			tx.rollback();
-		}
-		tx.commit();
-		return place;
+	public Place findById(Long id) {
+		return manager.find(Place.class,	id);
 	}
-	
-	public Place changePostCode(Long idPlace, Integer postCode){
-		Place place = this.findPlaceById(idPlace);
-		place.setPostCode(postCode);
-		EntityTransaction tx = manager.getTransaction();
-		try {
-		}catch(Exception e){
-			tx.rollback();
-		}
-		tx.commit();
-		return place;
+
+	public Place update(Place entity) {
+		manager.merge(entity);
+		return entity;
 	}
-	
-	public void deletePlace(Place place){
+
+	public void delete(Place entity) {
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		try{
-			manager.remove(place);
+			manager.remove(entity);
 		}catch(Exception e){
 			tx.rollback();
 		}
-		tx.commit();
+		tx.commit();		
 	}
+
+	
 }
