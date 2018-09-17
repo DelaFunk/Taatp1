@@ -3,37 +3,39 @@ package dao;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
-import enties.Place;
+import enties.User;
 
-public class PlaceDao implements Dao<Place, Long>{
-private EntityManager manager;
+public abstract class AbstractDao<T, K> implements Dao<T, K>{
+
+
+	private EntityManager manager;
 	
-	public PlaceDao(EntityManager manager){
+	public AbstractDao(EntityManager manager)	{
 		this.manager = manager;
 	}
 
-	public Place create(Place entity) {
+	public T create(T entity) {
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
-		try{
+		try {
 			manager.persist(entity);
-		}catch(Exception e){
+		}catch(Exception e) {
 			tx.rollback();
 		}
 		tx.commit();
 		return entity;
 	}
 
-	public Place findById(Long id) {
-		return manager.find(Place.class,	id);
-	}
+	//public T findById(K id) {
+	//	return manager.find(T, id);
+	//}
 
-	public Place update(Place entity) {
+	public T update(T entity) {
 		manager.merge(entity);
 		return entity;
 	}
 
-	public void delete(Place entity) {
+	public void delete(T entity) {
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		try{
@@ -41,8 +43,6 @@ private EntityManager manager;
 		}catch(Exception e){
 			tx.rollback();
 		}
-		tx.commit();		
+		tx.commit();
 	}
-
-	
 }
