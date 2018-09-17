@@ -3,44 +3,32 @@ package dao;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import enties.Activity;
+import enties.User;
 
 
-public class ActivityDao implements Dao<Activity, Long>{
+public class ActivityDao  extends AbstractDao<Activity, Long> implements Dao< Activity, Long>{
+	
+	public ActivityDao(EntityManager manager) {
+		super(manager);
+	}
+
 	private EntityManager manager;
-	
-	public ActivityDao (EntityManager manager){
-		this.manager = manager;
+
+
+	public Activity create(Activity entity) {
+		return super.create(entity);
 	}
-	public Activity create (Activity entity) {
-		EntityTransaction tx = manager.getTransaction();
-		tx.begin();
-		try {
-			manager.persist(entity);
-		}catch (Exception e) {
-			tx.rollback();
-		}
-		tx.commit();
-		return entity;
-	}
-	
+
 	public Activity findById(Long id) {
-		return manager.find(Activity.class, id);
+		return manager.find(Activity.class,	id);
 	}
-	
-	public Activity update (Activity entity) {
-		manager.merge(entity);
-		return entity;
+
+	public Activity update(Activity entity) {
+		return super.update(entity);
 	}
-	
-	public void delete (Activity entity) {
-		EntityTransaction tx = manager.getTransaction();
-		tx.begin();
-		try {
-			manager.remove(entity);
-		}catch(Exception e) {
-			tx.rollback();
-		}
-		tx.commit();
+
+	public void delete(Activity entity) {
+		super.delete(entity);
 	}
 	
 
