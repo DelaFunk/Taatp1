@@ -62,7 +62,6 @@ public class JpaTest {
 
             manager.persist(new User("Paul", "abdce", "paul@mail.com"));
             manager.persist(new User("Pierre", "12345", "pierre@mail.com"));
-
         }
     }
 
