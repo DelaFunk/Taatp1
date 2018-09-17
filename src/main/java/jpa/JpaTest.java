@@ -46,6 +46,11 @@ public class JpaTest {
         }catch(Exception e) {
         	e.printStackTrace();
         }
+        try {
+        	test.createActivity();
+        }catch (Exception e) {
+        	e.printStackTrace();
+        }
         tx.commit();
 
         test.listUsers();
