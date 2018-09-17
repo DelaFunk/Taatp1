@@ -15,6 +15,7 @@ import enties.Snow;
 import enties.State;
 import enties.Wave;
 import enties.Wind;
+import enties.Activity;
 
 
 public class JpaTest {
@@ -43,6 +44,11 @@ public class JpaTest {
         try {
         	test.createWeather();
         }catch(Exception e) {
+        	e.printStackTrace();
+        }
+        try {
+        	test.createActivity();
+        }catch (Exception e) {
         	e.printStackTrace();
         }
         tx.commit();
@@ -95,4 +101,43 @@ public class JpaTest {
             System.out.println("next weather: " + next);
         }
     }
+    
+    private void createActivity(){
+    	int numberOfActivity = manager.createQuery("Select a From Activity a", Activity.class).getResultList().size();
+    	if(numberOfActivity == 0){
+    		 Place paris = new Place("Paris", 75000);
+             manager.persist(paris);
+             
+            Snow snow = new Snow("low");
+     		State state = new State("rain");
+     		Wind wind = new Wind("low");
+     		Wave wave = new Wave("low");
+     		manager.persist(snow);
+     		manager.persist(state);
+     		manager.persist(wind);
+     		manager.persist(wave);
+     		Weather temps1 = new Weather(28,state,snow,wind,wave);
+     		Weather temps2 = new Weather(10,state,snow,wind,wave);
+     		manager.persist(temps1);
+     		manager.persist(temps2);
+     		List<Weather> weathers = new ArrayList<Weather>();
+     		weathers.add(temps1);
+     		weathers.add(temps2);
+     		
+     		List<Place> places = new ArrayList<Place>();
+     		places.add(paris);
+     		
+    		Activity tennis = new Activity ("tennis", places,weathers);
+    		manager.persist(tennis);	
+    	}
+    }
+    
+    private void listActivity() {
+        List<Activity> resultList = manager.createQuery("Select a From Activity a", Activity.class).getResultList();
+        System.out.println("num of activity:" + resultList.size());
+        for (Activity next : resultList) {
+            System.out.println("next Activity: " + next);
+        }
+    }
+    
 }

@@ -60,7 +60,7 @@ public class Activity {
 
 
 
-	public void setWeathers(ArrayList<Weather> weathers) {
+	public void setWeathers(List<Weather> weathers) {
 		this.weathers = weathers;
 	}
 
@@ -74,7 +74,7 @@ public class Activity {
 	}
 
 
-	public void setUsers(ArrayList<User> users) {
+	public void setUsers(List<User> users) {
 		this.users = users;
 	}
 
@@ -87,7 +87,7 @@ public class Activity {
 	}
 
 
-	public void setPlaces(ArrayList<Place> places) {
+	public void setPlaces(List<Place> places) {
 		this.places = places;
 	}
 
