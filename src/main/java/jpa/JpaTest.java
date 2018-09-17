@@ -52,6 +52,7 @@ public class JpaTest {
         tx.commit();
 
         test.listUsers();
+        test.listActivity();
         test.listWeather();
         test.listActivity();
             
@@ -77,6 +78,7 @@ public class JpaTest {
             System.out.println("user find :" + userDao.findById(user2.getIdUser()).toString());
             userDao.delete(user1);
             userDao.delete(user2);
+
         }
     }
 
