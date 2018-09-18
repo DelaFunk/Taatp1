@@ -7,24 +7,17 @@ import org.hibernate.Session;
 
 import enties.User;
 
-public class UserDao implements Dao<User, Long>{
+public class UserDao extends AbstractDao<User, Long> implements Dao< User, Long>{
 	
-	private EntityManager manager;
-	
-	public UserDao(EntityManager manager){
-		this.manager = manager;
+	public UserDao(EntityManager manager) {
+		super(manager);
 	}
 
+	private EntityManager manager;
+
+
 	public User create(User entity) {
-		EntityTransaction tx = manager.getTransaction();
-		tx.begin();
-		try{
-			manager.persist(entity);
-		}catch(Exception e){
-			tx.rollback();
-		}
-		tx.commit();
-		return entity;
+		return super.create(entity);
 	}
 
 	public User findById(Long id) {
@@ -32,18 +25,10 @@ public class UserDao implements Dao<User, Long>{
 	}
 
 	public User update(User entity) {
-		manager.merge(entity);
-		return entity;
+		return super.update(entity);
 	}
 
 	public void delete(User entity) {
-		EntityTransaction tx = manager.getTransaction();
-		tx.begin();
-		try{
-			manager.remove(entity);
-		}catch(Exception e){
-			tx.rollback();
-		}
-		tx.commit();
+		super.delete(entity);
 	}
 }
