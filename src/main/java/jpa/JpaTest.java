@@ -9,7 +9,12 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
 import dao.PlaceDao;
+import dao.SnowDao;
+import dao.StateDao;
 import dao.UserDao;
+import dao.WaveDao;
+import dao.WeatherDao;
+import dao.WindDao;
 import enties.User;
 import enties.Place;
 import enties.Weather;
@@ -36,14 +41,10 @@ public class JpaTest {
         JpaTest test = new JpaTest(manager);
        
         test.createUsers();
+        test.createWeather();
         
         EntityTransaction tx = manager.getTransaction();      
         tx.begin();
-        try {
-        	test.createWeather();
-        }catch(Exception e) {
-        	e.printStackTrace();
-        }
         try {
         	test.createActivity();
         }catch (Exception e) {
@@ -94,14 +95,42 @@ public class JpaTest {
     	int numOfWeather = manager.createQuery("Select w From Weather w", Weather.class).getResultList().size();
     	if(numOfWeather == 0){
     		Snow snow = new Snow("low");
+    		SnowDao snowDao = new SnowDao(manager);
     		State state = new State("rain");
+    		StateDao stateDao = new StateDao(manager);
     		Wind wind = new Wind("low");
+    		WindDao windDao = new WindDao(manager);
     		Wave wave = new Wave("low");
-    		manager.persist(snow);
-    		manager.persist(state);
-    		manager.persist(wind);
-    		manager.persist(wave);
-    		manager.persist(new Weather(30,state,snow,wind,wave));
+    		WaveDao waveDao = new WaveDao(manager);
+    		snowDao.create(snow);
+    		stateDao.create(state);
+    		windDao.create(wind);
+    		waveDao.create(wave);
+    		Weather weather = new Weather(30,state,snow,wind,wave);
+    		WeatherDao weatherDao = new WeatherDao(manager);
+    		snow.setLabel("medium");
+    		state.setLabel("sun");
+    		wind.setLabel("medium");
+    		wave.setLabel("medium");
+    		//Snow snowTest = new Snow("high");
+    		//SnowDao snowDaotest = new SnowDao(manager);
+    		//snowDaotest.create(snowTest);
+    		weather.setTemperature(20);
+    		snowDao.update(snow);
+    		stateDao.update(state);
+    		windDao.update(wind);
+    		waveDao.update(wave);
+    		weatherDao.update(weather);
+    		System.out.println("snow find :" + snowDao.findById(snow.getIdSnow()).toString());
+    		System.out.println("state find :" + stateDao.findById(state.getIdState()).toString());
+    		System.out.println("wind find :" + windDao.findById(wind.getIdWind()).toString());
+    		System.out.println("wave find :" + waveDao.findById(wave.getIdWave()).toString());
+    		//System.out.println("weather find :" + weatherDao.findById(weather.getIdWeather()).toString());
+    		weatherDao.delete(weather);
+    		snowDao.delete(snow);
+    		stateDao.delete(state);
+    		windDao.delete(wind);
+    		waveDao.delete(wave);
     	}
     }
     
