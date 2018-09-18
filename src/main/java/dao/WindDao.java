@@ -6,8 +6,6 @@ import enties.Wind;
 
 public class WindDao extends AbstractDao<Wind, Long> implements Dao<Wind, Long>{
 
-	private EntityManager manager;
-	
 	public WindDao(EntityManager manager) {
 		super(manager);
 	}

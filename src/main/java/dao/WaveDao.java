@@ -6,8 +6,6 @@ import enties.Wave;
 
 public class WaveDao extends AbstractDao<Wave, Long> implements Dao<Wave, Long>{
 
-	private EntityManager manager;
-	
 	public WaveDao(EntityManager manager) {
 		super(manager);
 	}

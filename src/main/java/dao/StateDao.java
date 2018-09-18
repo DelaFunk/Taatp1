@@ -6,8 +6,6 @@ import enties.State;
 
 public class StateDao extends AbstractDao<State, Long> implements Dao<State, Long>{
 
-	private EntityManager manager;
-	
 	public StateDao(EntityManager manager) {
 		super(manager);
 	}

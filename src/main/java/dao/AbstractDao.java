@@ -8,7 +8,7 @@ import enties.User;
 public abstract class AbstractDao<T, K> implements Dao<T, K>{
 
 
-	private EntityManager manager;
+	protected EntityManager manager;
 	
 	public AbstractDao(EntityManager manager)	{
 		this.manager = manager;
@@ -31,7 +31,14 @@ public abstract class AbstractDao<T, K> implements Dao<T, K>{
 	//}
 
 	public T update(T entity) {
-		manager.merge(entity);
+		EntityTransaction tx = manager.getTransaction();
+		tx.begin();
+		try {
+			manager.merge(entity);			
+		}catch(Exception e) {
+			tx.rollback();
+		}
+		tx.commit();
 		return entity;
 	}
 

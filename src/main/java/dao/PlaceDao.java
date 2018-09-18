@@ -5,8 +5,6 @@ import javax.persistence.EntityManager;
 import enties.Place;
 
 public class PlaceDao extends AbstractDao<Place, Long> implements Dao<Place, Long>{
-
-	private EntityManager manager;
 	
 	public PlaceDao(EntityManager manager) {
 		super(manager);

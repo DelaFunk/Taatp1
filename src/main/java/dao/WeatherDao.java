@@ -6,8 +6,6 @@ import enties.Weather;
 
 public class WeatherDao extends AbstractDao<Weather, Long> implements Dao<Weather, Long>{
 
-	private EntityManager manager;
-	
 	public WeatherDao(EntityManager manager) {
 		super(manager);
 	}

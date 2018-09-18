@@ -7,9 +7,7 @@ import enties.Snow;
 
 
 public class SnowDao extends AbstractDao<Snow, Long> implements Dao<Snow, Long> {
-	
-	private EntityManager manager;
-	
+		
 	public SnowDao(EntityManager manager) {
 		super(manager);
 	}
