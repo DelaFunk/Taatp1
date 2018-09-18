@@ -8,6 +8,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
+import dao.ActivityDao;
 import dao.PlaceDao;
 import dao.SnowDao;
 import dao.StateDao;
@@ -147,29 +148,38 @@ public class JpaTest {
     	int numberOfActivity = manager.createQuery("Select a From Activity a", Activity.class).getResultList().size();
     	if(numberOfActivity == 0){
     		 Place paris = new Place("Paris", 75000);
-             manager.persist(paris);
+    		 PlaceDao parisDao = new PlaceDao(manager);
+             parisDao.create(paris);
              
-            Snow snow = new Snow("low");
+             Snow snow = new Snow("low");
+     		SnowDao snowDao = new SnowDao(manager);
      		State state = new State("rain");
+     		StateDao stateDao = new StateDao(manager);
      		Wind wind = new Wind("low");
+     		WindDao windDao = new WindDao(manager);
      		Wave wave = new Wave("low");
-     		manager.persist(snow);
-     		manager.persist(state);
-     		manager.persist(wind);
-     		manager.persist(wave);
-     		Weather temps1 = new Weather(28,state,snow,wind,wave);
-     		Weather temps2 = new Weather(10,state,snow,wind,wave);
-     		manager.persist(temps1);
-     		manager.persist(temps2);
+     		WaveDao waveDao = new WaveDao(manager);
+     		snowDao.create(snow);
+     		stateDao.create(state);
+     		windDao.create(wind);
+     		waveDao.create(wave);
+     		Weather weather1 = new Weather(28,state,snow,wind,wave);
+     		WeatherDao weatherDao = new WeatherDao(manager);
+     		weatherDao.create(weather1);
+     		Weather weather2 = new Weather(10,state,snow,wind,wave);
+     		weatherDao.create(weather2);
      		List<Weather> weathers = new ArrayList<Weather>();
-     		weathers.add(temps1);
-     		weathers.add(temps2);
+     		;
+     		weathers.add(weather1);
+     		weathers.add(weather2);
      		
      		List<Place> places = new ArrayList<Place>();
      		places.add(paris);
      		
     		Activity tennis = new Activity ("tennis", places,weathers);
-    		manager.persist(tennis);	
+    		ActivityDao tennisDao =	 new ActivityDao(manager);
+    		tennisDao.create(tennis);
+    		
     	}
     }
     
