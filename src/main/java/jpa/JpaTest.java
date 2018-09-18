@@ -108,6 +108,7 @@ public class JpaTest {
     		waveDao.create(wave);
     		Weather weather = new Weather(30,state,snow,wind,wave);
     		WeatherDao weatherDao = new WeatherDao(manager);
+    		weatherDao.create(weather);
     		snow.setLabel("medium");
     		state.setLabel("sun");
     		wind.setLabel("medium");
@@ -125,7 +126,7 @@ public class JpaTest {
     		System.out.println("state find :" + stateDao.findById(state.getIdState()).toString());
     		System.out.println("wind find :" + windDao.findById(wind.getIdWind()).toString());
     		System.out.println("wave find :" + waveDao.findById(wave.getIdWave()).toString());
-    		//System.out.println("weather find :" + weatherDao.findById(weather.getIdWeather()).toString());
+    		System.out.println("weather find :" + weatherDao.findById(weather.getIdWeather()).toString());
     		weatherDao.delete(weather);
     		snowDao.delete(snow);
     		stateDao.delete(state);
